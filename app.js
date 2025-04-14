@@ -84,6 +84,10 @@ io.on('connection', (socket) => {
     });
 });
 
+//pruebas en render
+app.get('/', (req, res) => {
+    res.send('🚀 API funcionando correctamente desde Render');
+});
 
 // Usuario Administrador
 
