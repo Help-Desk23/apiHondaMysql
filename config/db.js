@@ -34,12 +34,4 @@ const db = mysql.createPool({
   // Puedes ajustar este número según lo necesites
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error('❌ Error conectando a MySQL:', err);
-    return;
-  }
-  console.log('✅ Conectado a la base de datos correctamente.');
-});
-
 module.exports = db;
