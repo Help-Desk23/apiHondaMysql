@@ -147,7 +147,7 @@ const { getAsesores } = require('./controllers/asesor/asesor');
 const asesorRouter = require('./router/asesor/asesorRouter');
 const { getMotos } = require('./controllers/motos/motos');
 const motosRouter = require('./router/motos/motosRouter');
-const { getProformas, getCotizacion } = require('./controllers/proforma/proforma');
+const { getProformas, getCotizacion, getCotizacionAsesor } = require('./controllers/proforma/proforma');
 const proformaRout = require('./router/proforma/proformaRouter');
 const { getClientes } = require('./controllers/cliente/cliente');
 const clienteRouter = require('./router/cliente/clienteRouter');
@@ -173,6 +173,7 @@ io.on('connection', (socket) => {
   socket.on('obtenerMotos', () => getMotos(socket));
   socket.on('obtenerProformas', () => getProformas(socket));
   socket.on('obtenerCotizacion', () => getCotizacion(socket));
+  socket.on('obtenerCotizacionAsesor',(id_asesores) => getCotizacionAsesor(socket, id_asesores));
   socket.on('obtenerClientes', () => getClientes(socket));
 
   socket.on('disconnect', () => {

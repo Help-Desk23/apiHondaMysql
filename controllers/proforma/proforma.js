@@ -97,54 +97,53 @@ const getCotizacion = async (socket) => {
             }
 };
 
+// Controlador para mostrar proformas en base a los id de asesores
 
-/*const getCotizacion = async (socket) => {
-    try {
-        const pool = await sql.connect(db);
-        
-        const result = await pool.request()
-            .query(`
-                SELECT 
-                    c.id_cliente,
-                    c.nombre AS nombre_cliente,
-                    c.telefono,
-                    p.plazo,
-                    p.precious,
-                    p.inicialbs,
-                    p.fecha,
-                    p.cuota_mes,
-                    m.modelo AS modelo,
-                    a.asesor AS asesor,
-                    s.sucursal AS sucursal,
-                    m.img_motos AS img_moto
-                FROM 
-                    cliente c
-                JOIN 
-                    proforma p ON c.id_cliente = p.id_cliente
-                JOIN 
-                    motos m ON p.id_motos = m.id_motos
-                JOIN 
-                    asesores a ON p.id_asesores = a.id_asesores
-                JOIN 
-                    sucursales s ON p.id_sucursal = s.id_sucursal
-            `);
 
-        if (result.recordset.length === 0) {
-            return socket.emit( 'error', { message: 'No se encontraron registros' });
-        }
-
-        socket.emit('proformaData', result.recordset);
-        
-    } catch (err) {
-        console.error('Error al obtener cotización:', err);
-        socket.emit('error', { message: 'Error al obtener la cotización' });
-    }
-}; */
+const getCotizacionAsesor = async (socket, id_asesores) => {
+    const query = `SELECT 
+                c.id_cliente,
+                c.nombre AS nombre_cliente,
+                c.telefono,
+                p.plazo,
+                p.precious,
+                p.inicialbs,
+                p.fecha,
+                p.cuota_mes,
+                m.modelo AS modelo,
+                a.asesor AS asesor,
+                s.sucursal AS sucursal,
+                m.img_motos AS img_moto
+            FROM 
+                clientes AS c
+            INNER JOIN 
+                proforma AS p ON c.id_cliente = p.id_cliente
+            INNER JOIN 
+                motos AS m ON p.id_motos = m.id_motos
+            INNER JOIN 
+                asesores AS a ON p.id_asesores = a.id_asesores
+            INNER JOIN 
+                sucursales AS s ON p.id_sucursal = s.id_sucursal
+            WHERE
+                p.id_asesores = ?;`
+                ;
+            try{
+                const [rows] = await db.promise().query(query, [id_asesores]);
+                if(!rows || rows.length === 0) {
+                    return socket.emit('error', {message: "No se encontro ninguna cotización"});
+                }
+                socket.emit('proformaData', rows);
+            }catch(err){
+                console.error("Error al obtener la cotización", err);
+                socket.emit('error', {message: "Error al obtener la cotización"})
+            }
+};
 
 
 module.exports = {
     getProformas,
     addProforma,
     deleteProforma,
-    getCotizacion
+    getCotizacion,
+    getCotizacionAsesor
 };
