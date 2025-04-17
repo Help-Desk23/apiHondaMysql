@@ -12,7 +12,7 @@ const asesorRouter = require('./router/asesor/asesorRouter');
 const { getMotos } = require('./controllers/motos/motos');
 const motosRouter = require('./router/motos/motosRouter');
 const path = require('path');
-const { getProformas, getCotizacion } = require('./controllers/proforma/proforma');
+const { getProformas, getCotizacion, getCotizacionAsesor} = require('./controllers/proforma/proforma');
 const proformaRout = require('./router/proforma/proformaRouter');
 const { getClientes } = require('./controllers/cliente/cliente');
 const clienteRouter = require('./router/cliente/clienteRouter');
@@ -69,6 +69,10 @@ io.on('connection', (socket) => {
 
     socket.on('obtenerCotizacion', () =>{
         getCotizacion(socket);
+    });
+
+    socket.on('obtenerCotizacionAsesor', ({id_asesores}) => {
+        getCotizacionAsesor(socket, id_asesores);
     });
 
     // Clientes
