@@ -156,7 +156,7 @@ const clienteRouter = require('./router/cliente/clienteRouter');
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:5173']
+  origin: ['http://localhost:5173', 'https://tusitio.com'], // reemplaza con tu dominio real
   methods: ['GET', 'POST'],
   credentials: true
 }));
