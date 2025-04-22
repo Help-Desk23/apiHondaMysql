@@ -104,12 +104,39 @@ const deleteAdmin = (req, res) => {
     });
 };
 
+// Controlador para login de un usuario administrador
+
+const loginAdmin = async (req, res) => {
+    const {usuario, contraseña} = req.body;
+
+    try{
+        const query = "SELECT * FROM useradmin WHERE usuario= ? AND contraseña= ?";
+        const values = [usuario, contraseña];
+
+        db.query(query, values, (error, result) => {
+            if(error){
+                console.error("Error al iniciar sesión", error);
+                return res.status(500).json({error: "Error al iniciar sesión"});
+            }
+            if(result.length === 0){
+                return res.status(401).json({error: "Usuario o contraseña incorrecta"});
+            }
+            const admin = result[0];
+            res.status(200).json({message: "Inicio exitoso", admin});
+        });
+    }catch(err){
+        console.error("Error al iniciar sesión", err);
+        res.status(500).json({error: "Erro interno del servidor"})
+    }
+};
+
 
 module.exports = {
     getAdmin,
     addAdmin,
     updateAdmin,
-    deleteAdmin
+    deleteAdmin,
+    loginAdmin
 };
 
 

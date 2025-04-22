@@ -1,5 +1,5 @@
 const express = require('express');
-const {addAdmin, updateAdmin, deleteAdmin} = require('../../controllers/admin/admin');
+const {addAdmin, updateAdmin, deleteAdmin, loginAdmin} = require('../../controllers/admin/admin');
 
 const adminRouter = express.Router();
 
@@ -15,7 +15,9 @@ adminRouter.patch('/admin/:id', updateAdmin);
 
 adminRouter.delete('/admin/:id', deleteAdmin);  
 
+// Ruta login para administradores
 
+adminRouter.post('/admin/login', loginAdmin);
 
 
 module.exports = adminRouter;
