@@ -135,6 +135,7 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
+const cors = require('cors');
 require('dotenv').config();
 
 const { getAdmin } = require('./controllers/admin/admin');
@@ -153,6 +154,14 @@ const { getClientes } = require('./controllers/cliente/cliente');
 const clienteRouter = require('./router/cliente/clienteRouter');
 
 const app = express();
+const cors = require('cors');
+
+app.use(cors({
+  origin: ['http://localhost:5173']
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 const server = http.createServer(app);
