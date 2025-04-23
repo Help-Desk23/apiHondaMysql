@@ -157,7 +157,7 @@ const app = express();
 
 app.use(cors({
   origin: ['http://localhost:5173', 'https://tusitio.com'], // reemplaza con tu dominio real
-  methods: ['GET', 'POST','PATCH', 'DELETE'],
+  methods: ['GET', 'POST','PATCH', 'DELETE', 'PUT'],
   credentials: true
 }));
 
@@ -167,7 +167,7 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: '*',
-    methods: ['GET', 'POST', 'PATCH', 'DELETE']
+    methods: ['GET', 'POST', 'PATCH', 'DELETE','PUT']
   }
 });
 
