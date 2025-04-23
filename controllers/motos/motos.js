@@ -41,7 +41,7 @@ const addMotos = async (req, res) => {
     const {modelo, precious, inicialbs} = req.body;
 
     const port = req.get('host').split(':')[1];
-    const img_motos = req.file ? `http://192.168.2.62:${port}/uploads/${req.file.filename}` : null;
+    const img_motos = req.file ? `https://apihonda.onrender.com/uploads/${req.file.filename}` : null;
 
     try {
         const query = "INSERT INTO motos (modelo, precious, inicialbs, img_motos) VALUES (?, ?, ?, ?)";
