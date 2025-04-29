@@ -190,7 +190,7 @@ io.on('connection', (socket) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('🚀 API funcionando correctamente desde Render');
+  res.send('🚀 API funcionando correctamente desde Servidor Instalado');
 });
 
 app.use("/", adminRouter);
@@ -203,7 +203,7 @@ app.use('/', proformaRout);
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.DB_PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });

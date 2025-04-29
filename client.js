@@ -1,5 +1,5 @@
 const io = require('socket.io-client'); 
-const socket = io('http://localhost:5000');
+const socket = io('http://177.222.114.122:3306');
 
 socket.on('connect', () => {
     console.log('Conectado al servidor WebSocket');
