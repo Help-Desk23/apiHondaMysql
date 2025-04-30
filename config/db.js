@@ -34,4 +34,13 @@ const db = mysql.createPool({
   // Puedes ajustar este número según lo necesites
 });
 
+db.getConnection((err, connection) => {
+    if (err) {
+      console.error('❌ Error al conectar a la base de datos:', err.message);
+    } else {
+      console.log('✅ Conexión a la base de datos establecida correctamente.');
+      connection.release(); // libera el slot en el pool
+    }
+  });
+
 module.exports = db;
