@@ -1,5 +1,7 @@
 const io = require('socket.io-client'); 
-const socket = io('http://177.222.114.122:3000');
+const socket = io('https://www.vian.com.bo', {
+  path: '/api-honda/socket.io'
+});
 
 socket.on('connect', () => {
     console.log('Conectado al servidor WebSocket');
