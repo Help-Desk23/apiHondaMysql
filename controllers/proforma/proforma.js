@@ -65,6 +65,7 @@ const getCotizacion = async (socket) => {
                 c.id_cliente,
                 c.nombre AS nombre_cliente,
                 c.telefono,
+                p.id_proforma,
                 p.plazo,
                 p.precious,
                 p.inicialbs,
