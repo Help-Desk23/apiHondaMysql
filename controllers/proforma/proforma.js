@@ -34,6 +34,7 @@ const addProforma = async (req, res) => {
             }
             res.status(201).json({ message: "Proforma ingresada correctamente" });
         });
+        
     }catch(err){
         console.error("Error al ingresar la proforma", err);
         res.status(500).json({ error: "Error interno del servidor" });
@@ -65,7 +66,6 @@ const getCotizacion = async (socket) => {
                 c.id_cliente,
                 c.nombre AS nombre_cliente,
                 c.telefono,
-                p.id_proforma,
                 p.plazo,
                 p.precious,
                 p.inicialbs,
@@ -106,6 +106,7 @@ const getCotizacionAsesor = async (socket, id_asesores) => {
                 c.id_cliente,
                 c.nombre AS nombre_cliente,
                 c.telefono,
+                p.id_proforma,
                 p.plazo,
                 p.precious,
                 p.inicialbs,

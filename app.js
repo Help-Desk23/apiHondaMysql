@@ -24,12 +24,8 @@ const app = express();
 
 app.use(cors({
   origin: [
-    'http://localhost:5173',           
-    'https://vian.com.bo',             
-    'https://www.vian.com.bo',         
-    'http://192.168.1.107',            
-    'http://177.222.114.122',          
-    'http://192.168.1.100',
+    'http://localhost:5173',            
+    'http://177.222.114.122',
     'http://localhost'            
   ],
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
@@ -66,7 +62,7 @@ io.on('connection', (socket) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('🚀 API funcionando correctamente desde Servidor Instalado');
+  res.send('🚀 API HONDA funcionando correctamente desde Servidor Local');
 });
 
 app.use("/", adminRouter);

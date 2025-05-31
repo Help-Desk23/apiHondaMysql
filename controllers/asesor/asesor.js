@@ -20,11 +20,11 @@ const getAsesores = async (socket) => {
 // Controlador POST para crear un asesor
 
 const addAsesor = async (req, res) => {
-    const {id_sucursal, asesor, usuario, contraseña} = req.body;
+    const {id_sucursal, asesor, usuario, contraseña, telefono} = req.body;
     
     try {
-        const query = "INSERT INTO asesores (id_sucursal, asesor, usuario, contraseña) VALUES (?, ?, ?, ?)";
-        const values = [id_sucursal, asesor, usuario, contraseña];
+        const query = "INSERT INTO asesores (id_sucursal, asesor, usuario, contraseña, telefono) VALUES (?, ?, ?, ?, ?)";
+        const values = [id_sucursal, asesor, usuario, contraseña, telefono];
 
         db.query(query, values, (error, result) => {
             if(error){
@@ -43,7 +43,7 @@ const addAsesor = async (req, res) => {
 
 const updateAsesor = async (req, res) => {
     const {id} = req.params;
-    const {id_sucursal, asesor, usuario, contraseña} = req.body;
+    const {id_sucursal, asesor, usuario, contraseña, telefono} = req.body;
 
     const update = []
     const values = []
@@ -66,6 +66,11 @@ const updateAsesor = async (req, res) => {
     if(contraseña){
         update.push('contraseña = ?');
         values.push(contraseña);
+    }
+
+    if(telefono){
+        update.push('telefono = ?');
+        values.push(telefono)
     }
 
     if(update.length === 0){
