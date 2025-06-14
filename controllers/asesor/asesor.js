@@ -20,11 +20,11 @@ const getAsesores = async (socket) => {
 // Controlador POST para crear un asesor
 
 const addAsesor = async (req, res) => {
-    const {id_sucursal, asesor, usuario, contraseña, telefono} = req.body;
+    const {id_sucursal, asesor, usuario, contraseña, telefono, estado} = req.body;
     
     try {
-        const query = "INSERT INTO asesores (id_sucursal, asesor, usuario, contraseña, telefono) VALUES (?, ?, ?, ?, ?)";
-        const values = [id_sucursal, asesor, usuario, contraseña, telefono];
+        const query = "INSERT INTO asesores (id_sucursal, asesor, usuario, contraseña, telefono, estado) VALUES (?, ?, ?, ?, ?, ?)";
+        const values = [id_sucursal, asesor, usuario, contraseña, telefono, estado];
 
         db.query(query, values, (error, result) => {
             if(error){
@@ -43,7 +43,7 @@ const addAsesor = async (req, res) => {
 
 const updateAsesor = async (req, res) => {
     const {id} = req.params;
-    const {id_sucursal, asesor, usuario, contraseña, telefono} = req.body;
+    const {id_sucursal, asesor, usuario, contraseña, telefono, estado} = req.body;
 
     const update = []
     const values = []
@@ -71,6 +71,14 @@ const updateAsesor = async (req, res) => {
     if(telefono){
         update.push('telefono = ?');
         values.push(telefono)
+    }
+
+    if(estado){
+        if(estado !== 'activo' && estado !== 'inactivo'){
+            return res.status(400).json({estado: "El valor de 'estado' debe ser 'activo' o 'inactivo' "});
+        };
+        update.push('estado = ?');
+        values.push(estado);
     }
 
     if(update.length === 0){
@@ -127,6 +135,11 @@ const loginAsesor = async (req, res) => {
             }
 
             const asesor = result[0];
+
+            if(asesor.estado !== 'activo'){
+                return res.status(403).json({message: "El usuario esta inhabilitado"});
+            }
+
             res.status(200).json({message: "Inicio exitoso", asesor});
         });
     }catch(err){
